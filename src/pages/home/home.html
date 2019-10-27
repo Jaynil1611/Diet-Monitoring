@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar text-center color="primary">
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="refresh();">
+        <ion-icon md="ios-refresh" style="color:white"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      OCR
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<!-- <button ion-button block round color="dark" style="text-transform: none;height: 4rem;" (tap)="viewNotes();" >
+    <ion-icon md="ios-paper" style="color:white;margin-right:2rem" ></ion-icon>
+    View Notes</button> -->
+    <ng-progress [min]="0" [max]="1"></ng-progress>
+    
+<button ion-button block round color="secondary" style="text-transform: none;height: 4rem;" (tap)="chooseImage();" >
+  <ion-icon md="ios-images" style="color:white;margin-right:2rem" ></ion-icon>
+  Select Image</button>
+<button ion-button block round color="primary" (tap)="recog();" style="margin-bottom: 2rem;text-transform: none;height: 4rem;margin-top:1rem;"  [disabled]="!selectedImage" >
+    <ion-icon md="ios-barcode" style="color:white;margin-right: 2rem;" ></ion-icon>
+  Recognize Text</button>
+  
+  <!-- <ion-row  *ngIf="imageText">
+        <button ion-button (tap)="speak();">
+            <ion-icon md="ios-mic" style="margin-right:1rem"></ion-icon> Speak
+          </button>
+  </ion-row> -->
+  
+<img [src]="selectedImage" *ngIf="selectedImage">
+<ion-card text-center *ngIf="imageText">
+  <ion-card-header color="dark">
+    Image Text Result
+  </ion-card-header>
+  <ion-card-content> {{imageText}} </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="imageText">
+  <ion-card-content>
+      <button ion-button block round color="warn" style="text-transform: none;height: 4rem;" (click)="incr()" [disabled]="!!confirmImage">
+          <ion-icon name="alert"></ion-icon> Confirm Result </button>
+  </ion-card-content>
+</ion-card>
+</ion-content>
