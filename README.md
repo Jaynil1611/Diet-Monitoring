@@ -1,5 +1,5 @@
 OCR : Optical Character Recognition  
-Mainly we are using OCR in our application for the purpose of reading the text on the invoice. To develop this application we’ve used IONIC Framework and Tesseract OCR Engine. 
+To develop this application we’ve used IONIC Framework and Tesseract OCR Engine. 
 
 Plug-ins used : 
 1.	Cordova-plugin-camera
