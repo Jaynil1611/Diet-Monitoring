@@ -1,0 +1,53 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <section style="background-image :url(https://unblast.com/wp-content/uploads/2018/12/Wood-Pattern-2.jpg);">
+    <div class="page-info-section set-bg">
+      <div class="container">
+        <div class="site-breadcrumb">
+          <a href="#">Home</a>
+          <span>Login</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container" id="login_div" style="top:1px;" >
+      <div class="row" >
+        <div class="col-md-12" >
+          <form [formGroup]="loginForm">
+            <div class="form-group">
+              <label>Email address</label>
+              <input type="email" formControlName="email" class="form-control" placeholder="Enter Email">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" formControlName="password" placeholder="Enter Password">
+              <label class="error">{{errorMessage}}</label>
+            </div>
+            <button type="submit" (click)="tryLogin(loginForm.value)" class="btn btn-danger">Login</button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <p>New to OnTrack ? <a ion-anchor routerLink="/register">Create an account</a></p>
+        </div>
+      </div>
+    </div>
+    <br><br>  <br><br>
+    </section>
+</ion-content>

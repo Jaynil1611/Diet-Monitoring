@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ActionSheetController, LoadingController, ToastController } from 'ionic-angular';
+import { ActionSheetController, LoadingController, ToastController } from 'ionic-angular';
 import * as Tessaract from 'tesseract.js';
 import { Camera,  PictureSourceType } from '@ionic-native/camera';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -7,8 +7,9 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'app-home',
+  templateUrl: '/home.html',
+  styleUrls: ['/home.css']
 })
 // export class HomePage {
 
@@ -17,7 +18,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 //   }
 
 // }
-export class HomePage {
+export class HomeComponent {
   selectedImage:string;
   imageText:string;
   ncount:number;
@@ -27,7 +28,7 @@ export class HomePage {
     private ns:NativeStorage,
     private tts:TextToSpeech,
     private loading:LoadingController,
-    public navCtrl: NavController,private actionsh:ActionSheetController,private camera:Camera,public progress:NgProgress) {
+    private actionsh:ActionSheetController,private camera:Camera,public progress:NgProgress) {
       this.ns.getItem('notecount').then(result=>{
         this.ncount = result.count;
       })
