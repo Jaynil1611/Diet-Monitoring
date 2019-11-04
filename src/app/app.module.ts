@@ -11,6 +11,7 @@ import { NgProgress, NgProgressModule } from '@ngx-progressbar/core';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
 import { firebaseConfig } from './credentials';
+import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth  } from 'angularfire2/auth';
 import { LoginComponent } from './login/login';
@@ -18,6 +19,7 @@ import { FireauthserviceProvider } from '../providers/fireauthservice/fireauthse
 import { HttpClientModule } from '@angular/common/http'; 
 import { RegisterComponent } from './register/register';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DietserviceProvider } from '../providers/dietservice/dietservice';
 
 
 @NgModule({
@@ -36,10 +38,11 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path : 'register', component : RegisterComponent},
       {path :  "", redirectTo:'/login', pathMatch:'full'}
       ]),
+      AngularFirestoreModule,
     IonicModule.forRoot(AppComponent),
     NgProgressModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +60,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NativeStorage,
     NgProgress,
     AngularFireAuth,
-    FireauthserviceProvider
+    AngularFirestoreModule,
+    FireauthserviceProvider,
+    DietserviceProvider
   ]
 })
 export class AppModule {}

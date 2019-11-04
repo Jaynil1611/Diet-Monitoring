@@ -5,6 +5,7 @@ import { Camera,  PictureSourceType } from '@ionic-native/camera';
 import { NgProgress } from '@ngx-progressbar/core';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { DietserviceProvider } from '../../providers/dietservice/dietservice';
 
 @Component({
   selector: 'app-home',
@@ -20,15 +21,17 @@ import { NativeStorage } from '@ionic-native/native-storage';
 // }
 export class HomeComponent {
   selectedImage:string;
-  imageText:string;
+  imageText :any;
   ncount:number;
   confirmImage = false;
+  res: any;
 
   constructor(public toss:ToastController,
     private ns:NativeStorage,
     private tts:TextToSpeech,
     private loading:LoadingController,
-    private actionsh:ActionSheetController,private camera:Camera,public progress:NgProgress) {
+    private actionsh:ActionSheetController,private camera:Camera,public progress:NgProgress,
+    public dietserve : DietserviceProvider) {
       this.ns.getItem('notecount').then(result=>{
         this.ncount = result.count;
       })
@@ -44,7 +47,6 @@ export class HomeComponent {
   }
   refresh(){
     this.selectedImage = "";
-    this.imageText = "";
   }
 
   chooseImage(){
@@ -93,15 +95,15 @@ export class HomeComponent {
     })
   }
 
-  speak(){
-    this.tts.speak(this.imageText)
-    .then(response=>{
+  // speak(){
+  //   this.tts.speak(this.imageText)
+  //   .then(response=>{
 
-    })
-    .catch(error=>{
-      alert(error)
-    })
-  }
+  //   })
+  //   .catch(error=>{
+  //     alert(error)
+  //   })
+  // }
   
   recog(){
     let lc = this.loading.create({
@@ -119,11 +121,18 @@ export class HomeComponent {
       alert(e)
     })
     .then(result=>{
-      this.imageText = result.text;
+      this.imageText = result.lines;
+      console.log(result);
+      console.log(this.imageText);
+      // console.log(this.imageText.text);
     })
     .finally(ress=>{
       this.progress.complete();
       lc.dismiss();
     })
+  }
+  addDietSamples()
+  {
+    this.dietserve.addDiet(this.imageText);
   }
 }

@@ -88,4 +88,5 @@
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^5.0.4" />
+    <allow-navigation href="http://localhost:8101" sessionid="9a9d6504" />
 </widget>

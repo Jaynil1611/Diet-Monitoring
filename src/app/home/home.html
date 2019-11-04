@@ -32,15 +32,17 @@
   
 <img [src]="selectedImage" *ngIf="selectedImage">
 <ion-card text-center *ngIf="imageText">
-  <ion-card-header color="dark">
+  <ion-card-header style="color: black;">
     Image Text Result
   </ion-card-header>
-  <ion-card-content> {{imageText}} </ion-card-content>
+  <ion-card-content *ngFor="let image of imageText">
+    <div>{{image.text}}</div>
+  </ion-card-content>
 </ion-card>
 
 <ion-card *ngIf="imageText">
   <ion-card-content>
-      <button ion-button block round color="warn" style="text-transform: none;height: 4rem;" (click)="incr()" [disabled]="!!confirmImage">
+      <button ion-button block round color="warn" style="text-transform: none;height: 4rem;" (click)="addDietSamples(imageText)" [disabled]="!!confirmImage">
           <ion-icon name="alert"></ion-icon> Confirm Result </button>
   </ion-card-content>
 </ion-card>

@@ -1,12 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
 <section style="background-image :url(https://unblast.com/wp-content/uploads/2018/12/Wood-Pattern-2.jpg);">
   <div class="page-info-section set-bg">
     <div class="container">
       <div class="site-breadcrumb">
-        <a ion-anchor href="#">Home</a>
         <span>Register</span>
       </div>
     </div>
   </div>
+  <br><br>
   <div class="container" id="register_div">
     <div class="row">
       <div class="col-md-12">
@@ -21,27 +29,27 @@
             <label class="error">{{errorMessage}}</label>
             <label class="success">{{successMessage}}</label>
           </div>
-          <button type="submit" (click)="tryRegister(registerForm.value)" class="btn btn-danger">Register</button>
+          <button mat-raised-button type="submit" (click)="tryRegister(registerForm.value)" class="btn btn-danger" color="warn">Register</button>
         </form>
       </div>
-    </div>
+    </div><br>
     <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <button type="button" class="btn btn-primary btn-block" (click)="tryFacebookLogin()">Register with Facebook</button>
+      <div class="col-md-3 col-md-offset-4">
+        <button mat-raised-button type="button" class="btn btn-primary " (click)="tryFacebookLogin()">Register with Facebook</button>
       </div>
-    </div>
+    </div><br>
     <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <button type="button" ion-button class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Register with Google</button>
+      <div class="col-md-3 col-md-offset-4">
+        <button mat-raised-button type="button"  class="btn btn-primary " (click)="tryGoogleLogin()">Register with Google</button>
       </div>
     </div>
     
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <p>Already have an account? <a ion-button color="secondary" (click)='goBack()'>Login</a></p>
+        <p>Already have an account?<a mat-raised-button href="" color="secondary" (click)='goBack()'>Login</a></p>
       </div>
     </div>
   </div>
   <br><br><br>
   </section>
-  
+  </ion-content>

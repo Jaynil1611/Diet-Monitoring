@@ -1,13 +1,8 @@
-<!--
-  Generated template for the LoginPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <ion-title>Login</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,12 +13,11 @@
     <div class="page-info-section set-bg">
       <div class="container">
         <div class="site-breadcrumb">
-          <a href="#">Home</a>
           <span>Login</span>
         </div>
       </div>
     </div>
-    
+    <br><br><br>
     <div class="container" id="login_div" style="top:1px;" >
       <div class="row" >
         <div class="col-md-12" >
@@ -36,18 +30,19 @@
               <label>Password</label>
               <input type="password" class="form-control" formControlName="password" placeholder="Enter Password">
               <label class="error">{{errorMessage}}</label>
-            </div>
-            <button type="submit" (click)="tryLogin(loginForm.value)" class="btn btn-danger">Login</button>
+            </div><br><br>
+            <button mat-raised-button type="submit" (click)="tryLogin(loginForm.value)" class="btn btn-danger" color="accent">Login</button><br><br>
+            <button mat-raised-button type="submit" (click)="tryGoogleLogin()" class="btn btn-primary ">Login Google</button>
           </form>
         </div>
       </div>
       
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
-          <p>New to OnTrack ? <a ion-anchor routerLink="/register">Create an account</a></p>
+          <p>New to OnTrack ?<a  routerLink="/register">Create an account</a></p>
         </div>
       </div>
     </div>
     <br><br>  <br><br>
     </section>
-</ion-content>
+  </ion-content>
