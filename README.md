@@ -7,9 +7,9 @@
 
 ## To Do
 
-- Firebase initialization
+- ~~Firebase initialization~~
 - Firebase authentication
-- Firebase hosting
+- ~~Firebase hosting~~
 - Allow user to upload an image from local directory
 - Display the output on HTML page with good display using CSS
 - Send the scanned output to database (Firebase CloudStore)
