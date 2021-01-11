@@ -7,10 +7,13 @@ import TextField from "@material-ui/core/TextField";
 import { useState } from "react";
 import FileBase64 from "react-file-base64";
 import "./App.css";
-// import Response from "./Response.json";
+import fire from "./firebaseCongif";
+// import { Response } from "./Response.json";
+import { auth } from "./firebaseCongif";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { Redirect } from "react-router-dom";
 
-function App() {
+function App(props) {
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -19,6 +22,7 @@ function App() {
       marginRight: theme.spacing(1),
     },
   }));
+  const firebase = fire.database();
   const classes = useStyles();
   const [image, setImage] = useState("");
   const [scannedItems, setScannedItems] = useState([]);
@@ -79,6 +83,16 @@ function App() {
     setImage(file.base64.split(",")[1]);
   }
 
+  function createObject() {
+    const scannedDiet = Object.assign(
+      ...scannedItems.map((key, index) => ({
+        [key]: scannedTime[index],
+      }))
+    );
+    console.log(scannedDiet);
+    return scannedDiet;
+  }
+
   const encode = () => {
     return <FileBase64 onDone={encodeString} />;
   };
@@ -119,107 +133,138 @@ function App() {
     }
   };
 
+  function logout(e) {
+    auth.signOut().then(() => {
+      console.log("logged out");
+      localStorage.clear();
+      props.history.push("/");
+    });
+  }
+
   const finalSubmit = () => {
+    // const scannedDiet = {
+    //   Idli: "09:00",
+    //   Dosa: "01:00",
+    //   Upma: "20:00",
+    //   "Pav Bhaji": "14:00",
+    //   Snacks: "16:00",
+    // };
+    const scannedDiet = createObject();
+    firebase.ref(localStorage.getItem("userAuth")).update(scannedDiet);
     alert("We have got your response, Thank you! ");
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
     <div className="App">
-      <h1> Welcome to OnTrack for Dieticians </h1>
-      <Button variant="outlined" size="large">
-        {encode()}
-      </Button>
-      <p>
-        <Button
-          onClick={submit}
-          variant="contained"
-          color="secondary"
-          size="large"
-        >
-          Scan Image
-        </Button>
-      </p>
-      <Grid container>
-        <Grid item xs={6}>
-          <h2> Food Items </h2>
-          {scannedItems.map((item, index) => {
-            return (
-              <div key={index}>
-                <TextField
-                  required
-                  type="text"
-                  label="Item"
-                  onChange={(e) => handleItemChange(e, index)}
-                  value={item}
-                ></TextField>
-              </div>
-            );
-          })}
-          <div>
+      {localStorage.getItem("userAuth") == null ? (
+        <Redirect to="/" />
+      ) : (
+        <div>
+          <h1>
+            Welcome to OnTrack for Dieticians
+            <span className="btn-logout">
+              <Button onClick={logout} color="secondary" variant="contained">
+                Logout
+              </Button>
+            </span>
+          </h1>
+
+          <Button variant="outlined" size="large">
+            {encode()}
+          </Button>
+          <p>
             <Button
-              onClick={addItemField}
-              size="medium"
-              color="primary"
-              className={classes.margin}
-            >
-              <AddCircleIcon fontSize="large"></AddCircleIcon>
-            </Button>
-            <IconButton
-              onClick={removeItemField}
+              onClick={submit}
+              variant="contained"
               color="secondary"
-              aria-label="delete"
-              className={classes.margin}
+              size="large"
             >
-              <DeleteIcon fontSize="large" />
-            </IconButton>
-          </div>
-        </Grid>
-        <Grid item xs={6}>
-          <h2> Timings </h2>
-          {scannedTime.map((time, index) => {
-            return (
-              <div key={index}>
-                <TextField
-                  required
-                  value={time}
-                  type="time"
-                  helper="Time"
-                  onChange={(e) => handleTimeChange(e, index)}
-                ></TextField>
+              Scan Image
+            </Button>
+          </p>
+          <Grid container>
+            <Grid item xs={6}>
+              <h2> Food Items </h2>
+              {scannedItems.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <TextField
+                      required
+                      type="text"
+                      label="Item"
+                      onChange={(e) => handleItemChange(e, index)}
+                      value={item}
+                    ></TextField>
+                  </div>
+                );
+              })}
+              <div>
+                <Button
+                  onClick={addItemField}
+                  size="medium"
+                  color="primary"
+                  className={classes.margin}
+                >
+                  <AddCircleIcon fontSize="large"></AddCircleIcon>
+                </Button>
+                <IconButton
+                  onClick={removeItemField}
+                  color="secondary"
+                  aria-label="delete"
+                  className={classes.margin}
+                >
+                  <DeleteIcon fontSize="large" />
+                </IconButton>
               </div>
-            );
-          })}
-          <div>
+            </Grid>
+            <Grid item xs={6}>
+              <h2> Timings </h2>
+              {scannedTime.map((time, index) => {
+                return (
+                  <div key={index}>
+                    <TextField
+                      required
+                      value={time}
+                      type="time"
+                      helper="Time"
+                      onChange={(e) => handleTimeChange(e, index)}
+                    ></TextField>
+                  </div>
+                );
+              })}
+              <div>
+                <Button
+                  onClick={addTimeField}
+                  size="medium"
+                  color="primary"
+                  className={classes.margin}
+                >
+                  <AddCircleIcon fontSize="large"></AddCircleIcon>
+                </Button>
+                <IconButton
+                  color="secondary"
+                  onClick={removeTimeField}
+                  aria-label="delete"
+                  className={classes.margin}
+                >
+                  <DeleteIcon fontSize="large" />
+                </IconButton>
+              </div>
+            </Grid>
+          </Grid>
+          <p>
             <Button
-              onClick={addTimeField}
-              size="medium"
-              color="primary"
-              className={classes.margin}
-            >
-              <AddCircleIcon fontSize="large"></AddCircleIcon>
-            </Button>
-            <IconButton
+              onClick={finalSubmit}
+              variant="contained"
               color="secondary"
-              onClick={removeTimeField}
-              aria-label="delete"
-              className={classes.margin}
+              size="large"
             >
-              <DeleteIcon fontSize="large" />
-            </IconButton>
-          </div>
-        </Grid>
-      </Grid>
-      <p>
-        <Button
-          onClick={finalSubmit}
-          variant="contained"
-          color="secondary"
-          size="large"
-        >
-          SUBMIT DIET PLAN
-        </Button>
-      </p>
+              SUBMIT DIET PLAN
+            </Button>
+          </p>
+        </div>
+      )}
     </div>
   );
 }
