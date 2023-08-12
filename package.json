@@ -33,7 +33,7 @@
     "angularfire2": "^5.0.0-rc.5.6-next",
     "bootstrap": "^4.3.1",
     "cordova-android": "^7.1.4",
-    "cordova-browser": "^5.0.4",
+    "cordova-browser": "^7.0.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
